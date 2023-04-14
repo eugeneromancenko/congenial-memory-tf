@@ -22,7 +22,7 @@ jobs:
       - name: terraform plan
         uses: dflook/terraform-plan@v1
         with:
-          path: my-terraform-config
+          path: -detailed-exitcode
           label: production
           workspace: prod
           var_file: zone/prod.tfvars
