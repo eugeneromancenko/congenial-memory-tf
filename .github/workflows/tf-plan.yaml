@@ -19,13 +19,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+
       - name: terraform plan
         uses: dflook/terraform-plan@v1
         with:
-          path: my-terraform-config
+          # path: my-terraform-config
           label: production
           workspace: prod
-          var_file: env/prod.tfvars
+          var_file: zone/prod.tfvars
           # variables: |
           #   turbo_mode=true
           # backend_config_file: env/prod.backend

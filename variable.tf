@@ -10,3 +10,8 @@ variable "project" {
   type        = string
   default     = "congenial-memory"
 }
+
+ variable "env" {}
+
+ variable "image_tag" {}
+

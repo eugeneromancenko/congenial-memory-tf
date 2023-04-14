@@ -4,14 +4,26 @@ module "ecs_cluster" {
   cluster_name = "${var.project}-cluster"
 }
 
+module "ecs_fargate_app" {
+  source = "./modules/ecs-fargate-app"
+
+  project     = var.project
+  env = var.env
+  aws_region  = var.aws_region
+  image_tag   = var.image_tag
+  ecs_cluster = module.ecs_cluster.cluster_arn
+  subnets     = data.aws_subnets.subnet.ids
+  vpc_id      = data.aws_vpc.default_vpc.id
+  
+}
 
 ##############################################
 ################### Data #####################
 ##############################################
 
-data "aws_iam_role" "task_ecs" {
-  name = "ecsTaskExecutionRole"
-}
+# data "aws_iam_role" "task_ecs" {
+#   name = "ecsTaskExecutionRole"
+# }
 
 data "aws_vpc" "default_vpc" {
   default = true
