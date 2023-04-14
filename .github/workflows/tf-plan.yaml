@@ -25,7 +25,7 @@ jobs:
           path: my-terraform-config
           label: production
           workspace: prod
-          var_file: env/prod.tfvars
+          var_file: zone/prod.tfvars
           # variables: |
           #   turbo_mode=true
           # backend_config_file: env/prod.backend
