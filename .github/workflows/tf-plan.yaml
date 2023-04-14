@@ -3,7 +3,7 @@ name: PR Plan
 on: [pull_request]
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.TERRAFORM_ACTIONS_GITHUB_TOKEN }}
   # TERRAFORM_CLOUD_TOKENS: terraform.example.com=${{ secrets.TF_REGISTRY_TOKEN }}
   # TERRAFORM_SSH_KEY: ${{ secrets.TERRAFORM_SSH_KEY }}
 
