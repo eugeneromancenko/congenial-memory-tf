@@ -1,3 +1,5 @@
+################### Security Groups #####################
+
 # Provides a security group resource to allow http traffic
 resource "aws_security_group" "lb_sg" {
   name    = "${var.project}-lb-sg"
@@ -25,6 +27,8 @@ resource "aws_vpc_security_group_egress_rule" "lb_allow_port" {
   ip_protocol = -1
 }
 
+################### Application Load Balancer #####################
+
 # Provides a Load Balancer resource for app
 resource "aws_lb" "this" {
   name = "${var.project}-lb"
@@ -38,6 +42,8 @@ resource "aws_lb" "this" {
   }
 }
 
+################### Application Load Balancer Target Group #####################
+
 # Provides a Target Group resource for use with Load Balancer resources
 resource "aws_lb_target_group" "this" {
   name        = "${var.project}-lb-target-group"
@@ -46,6 +52,8 @@ resource "aws_lb_target_group" "this" {
   target_type = "ip"
   vpc_id      = var.vpc_id
 }
+
+################### Application Load Balancer Listener #####################
 
 # Provides a Load Balancer Listener resource
 resource "aws_lb_listener" "this" {

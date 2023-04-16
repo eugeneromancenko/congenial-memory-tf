@@ -1,3 +1,5 @@
+################### ECS Service #####################
+
 # Provides an ECS service - effectively a task that is expected to run until an error occurs or a user terminates it
 resource "aws_ecs_service" "this" {
   name            = "${var.project}-service"
@@ -19,6 +21,8 @@ resource "aws_ecs_service" "this" {
     container_port    = var.host_container_port
   }
 }
+
+################### Security Groups #####################
 
 resource "aws_security_group" "this" {
   name    = "${var.project}-sg"

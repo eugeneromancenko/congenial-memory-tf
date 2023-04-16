@@ -1,3 +1,5 @@
+################### ECS Task Definition #####################
+
 # Manages a revision of an ECS task definition to be used in aws_ecs_service.
 resource "aws_ecs_task_definition" "this" {
   family                    = "${var.project}-family"

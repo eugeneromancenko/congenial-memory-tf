@@ -1,3 +1,5 @@
+################### Modules #####################
+
 module "ecs_cluster" {
   source = "./modules/ecs-cluster"
 
@@ -17,9 +19,7 @@ module "ecs_fargate_app" {
 
 }
 
-##############################################
 ################### Data #####################
-##############################################
 
 data "aws_vpc" "default_vpc" {
   default = true
