@@ -11,7 +11,7 @@ variable "project" {
   default     = "congenial-memory"
 }
 
- variable "env" {}
+variable "env" {}
 
- variable "image_tag" {}
+variable "image_tag" {}
 

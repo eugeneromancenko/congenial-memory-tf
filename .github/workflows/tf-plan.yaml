@@ -4,8 +4,6 @@ on: [pull_request]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # TERRAFORM_CLOUD_TOKENS: terraform.example.com=${{ secrets.TF_REGISTRY_TOKEN }}
-  # TERRAFORM_SSH_KEY: ${{ secrets.TERRAFORM_SSH_KEY }}
 
 permissions:
   contents: read
@@ -13,20 +11,29 @@ permissions:
 
 jobs:
   plan:
+    # The ubuntu-latest label currently uses the Ubuntu 22.04 runner image. -> https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
     runs-on: ubuntu-latest
     name: Create terraform plan
     steps:
       - name: Checkout
+        # This action checks-out your repository -> docs https://github.com/actions/checkout
         uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
+        # Configure AWS credential environment variables -> docs https://github.com/aws-actions/configure-aws-credentials 
         uses: aws-actions/configure-aws-credentials@v2
         with:
+          # Normally best way would be using GitHub's OIDC provider to get short-lived credentials needed for your actions. 
+          # Specifying role-to-assume without providing an aws-access-key-id
+          # as per this doc https://github.com/aws-actions/configure-aws-credentials 
+
+          # But for this task we've using my user key / access key
           aws-region: us-east-2
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
 
       - name: terraform plan
+        # GitHub actions for terraform -> https://github.com/dflook/terraform-github-actions
         uses: dflook/terraform-plan@v1
         with:
           # path: my-terraform-config
