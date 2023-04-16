@@ -15,29 +15,31 @@ resource "aws_ecs_service" "this" {
 
   load_balancer {
     target_group_arn  = aws_lb_target_group.this.arn
-    container_name    = "${var.project}-container"
+    container_name    = "${var.project}-app"
     container_port    = var.host_container_port
   }
 }
 
 resource "aws_security_group" "this" {
   name    = "${var.project}-sg"
+  description = "Security group for ${var.project} instances"
   vpc_id  = var.vpc_id
 }
 
 # Manages an inbound (ingress) rule for a security group.
-resource "aws_vpc_security_group_ingress_rule" "this" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ingress" {
+  description = "Rule for ${var.project} ingress"
   security_group_id = aws_security_group.this.id
 
-  referenced_security_group_id = aws_security_group.lb_sg.id
-
+  cidr_ipv4   = "0.0.0.0/0"
   from_port   = var.host_container_port
   to_port     = var.host_container_port
   ip_protocol = "tcp"
 }
 
 # Manages an outbound (egress) rule for a security group.
-resource "aws_vpc_security_group_egress_rule" "allow_https" {
+resource "aws_vpc_security_group_egress_rule" "allow_egress" {
+  description = "Rule for ${var.project} egress"
   security_group_id = aws_security_group.this.id
 
   cidr_ipv4   = "0.0.0.0/0"
