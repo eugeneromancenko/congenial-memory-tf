@@ -4,7 +4,6 @@ The terraform code in a modular format with the modules declared in the
 
 ```
 .
-
 └── modules
     ├── ecr-cluster
     └── ecs-fargate-app
@@ -17,7 +16,23 @@ Harcoded environment variables in the `./zone/prod.tfvars`
 ## State
 The state file is not stored remotely. 
 
+## Requirments
+
+- An AWS account: You will need to have an AWS account to use AWS services and create resources using Terraform.
+- AWS CLI: The AWS CLI is a command-line tool that allows you to interact with AWS services using commands. Terraform uses the AWS CLI to authenticate and connect to your AWS account.
+- Terraform: Terraform is an open-source tool that allows you to define infrastructure as code. You will need to install Terraform on your local machine to create and manage AWS resources.
+- IAM User with permissions: You will need to create an IAM user in your AWS account with appropriate permissions to manage AWS resources.
+- AWS Access Key and Secret Key: You will need to generate an AWS access key and secret key for the IAM user, which you will use to authenticate with AWS. 
+- AWS Access Key and Secret Key need to be added into Github Secret Variables
+
 ## Run
+
+Init/Plan/Apply terraform
+- clone repo and cd into congenial-memory-tf
+- `terraform init` from root folder
+- `terraform plan -var-file=./zone/prod.tfvars` check if you are happy with plan
+- `terraform apply -var-file=./zone/prod.tfvars` apply into aws
+- `terraform destroy -var-file=./zone/prod.tfvars` destroy infrastructure 
 
 ## CI/CD
 Just Plan added into terraform repo. as state file not available for github action runners. 

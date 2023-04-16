@@ -20,6 +20,12 @@ resource "aws_ecs_service" "this" {
     container_name    = "${var.project}-app"
     container_port    = var.host_container_port
   }
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [task_definition]
+  }
+
 }
 
 ################### Security Groups #####################
@@ -47,7 +53,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_egress" {
   security_group_id = aws_security_group.this.id
 
   cidr_ipv4   = "0.0.0.0/0"
-  from_port   = 0
-  to_port     = 0
+  from_port   = -1
+  to_port     = -1
   ip_protocol = -1
 }
