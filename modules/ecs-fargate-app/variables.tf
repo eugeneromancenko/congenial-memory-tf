@@ -4,6 +4,8 @@ variable "env" {}
 
 variable "aws_region" {}
 
+variable "aws_account_id" {}
+
 variable "image_tag" {
   description = "Docker Image Tag"
   type        = string
@@ -33,5 +35,5 @@ variable "host_container_port" {
 variable "instance_desired_count" {
   description = "Number of instances"
   type        = number
-  default     = 2
+  default     = 1
 }
