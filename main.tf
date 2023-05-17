@@ -21,7 +21,7 @@ module "ecs_fargate_app" {
   ecs_cluster    = module.ecs_cluster.cluster_arn
   subnets        = data.aws_subnets.subnet.ids
   vpc_id         = data.aws_vpc.default_vpc.id
-
+  host_container_port = var.host_container_port
 }
 
 ################### Data #####################
