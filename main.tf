@@ -13,14 +13,14 @@ module "ecs_cluster" {
 module "ecs_fargate_app" {
   source = "./modules/ecs-fargate-app"
 
-  project        = var.project
-  env            = var.env
-  aws_region     = var.aws_region
-  aws_account_id = var.aws_account_id
-  image_tag      = var.image_tag
-  ecs_cluster    = module.ecs_cluster.cluster_arn
-  subnets        = data.aws_subnets.subnet.ids
-  vpc_id         = data.aws_vpc.default_vpc.id
+  project             = var.project
+  env                 = var.env
+  aws_region          = var.aws_region
+  aws_account_id      = var.aws_account_id
+  image_tag           = var.image_tag
+  ecs_cluster         = module.ecs_cluster.cluster_arn
+  subnets             = data.aws_subnets.subnet.ids
+  vpc_id              = data.aws_vpc.default_vpc.id
   host_container_port = var.host_container_port
 }
 
