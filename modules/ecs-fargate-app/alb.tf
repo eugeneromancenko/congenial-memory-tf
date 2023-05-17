@@ -65,7 +65,7 @@ resource "aws_lb_target_group" "this" {
 
 ################### Application Load Balancer Listener #####################
 
-# Provides a Load Balancer Listener resource
+# Provides a Load Balancer Listener resource for http
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.this.arn
   port              = 80
@@ -79,14 +79,20 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-# ALB Listener resource
+# Find a certificate that is issued
+data "aws_acm_certificate" "issued" {
+  domain   = "romancenko.com"
+  statuses = ["ISSUED"]
+}
+
+# ALB Listener resource for https
 resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.this.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
 
-  certificate_arn = "arn:aws:acm:eu-west-1:363747985912:certificate/17713c71-eb29-45a3-a668-f016c1beedb8"
+  certificate_arn = data.aws_acm_certificate.issued.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.this.arn
